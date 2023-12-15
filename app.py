@@ -88,7 +88,7 @@ def signup():
             db.session.commit()
 
         except IntegrityError:
-            flash("Username already taken", 'danger')
+            flash("Username/Email already taken", 'danger')
             return render_template('users/signup.html', form=form)
 
         do_login(user)
@@ -210,7 +210,7 @@ def show_likes(user_id):
     user = User.query.get_or_404(user_id)
     print('This is g.user.liked', g.user.liked)
 
-    liked_messages_ids = [m.id for m in g.user.liked]
+    liked_messages_ids = [m.id for m in user.liked]
 
     print('This is liked_messages_ids', liked_messages_ids)
 
@@ -299,7 +299,7 @@ def edit_profile():
                 return render_template('/users/edit.html', form=form, user=user)
 
         except IntegrityError:
-            flash("Username already taken", 'danger')
+            flash("Username/Email already taken", 'danger')
             return render_template('/users/edit.html', form=form, user=user)
 
         return redirect(f'/users/{user.id}')

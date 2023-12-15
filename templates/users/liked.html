@@ -6,37 +6,37 @@
     <div class="card user-card">
       <div>
         <div class="image-wrapper">
-          <img src="{{ g.user.header_image_url }}" alt="" class="card-hero">
+          <img src="{{ user.header_image_url }}" alt="" class="card-hero">
         </div>
-        <a href="/users/{{ g.user.id }}" class="card-link">
+        <a href="/users/{{ user.id }}" class="card-link">
           <img
-            src="{{ g.user.image_url }}"
-            alt="Image for {{ g.user.username }}"
+            src="{{ user.image_url }}"
+            alt="Image for {{ user.username }}"
             class="card-image">
-          <p>@{{ g.user.username }}</p>
+          <p>@{{ user.username }}</p>
         </a>
         <ul class="user-stats nav nav-pills">
           <li class="stat">
             <p class="small">Messages</p>
             <h4>
-              <a href="/users/{{ g.user.id }}">
-                {{ g.user.messages | length }}
+              <a href="/users/{{ user.id }}">
+                {{ user.messages | length }}
               </a>
             </h4>
           </li>
           <li class="stat">
             <p class="small">Following</p>
             <h4>
-              <a href="/users/{{ g.user.id }}/following">
-                {{ g.user.following | length }}
+              <a href="/users/{{ user.id }}/following">
+                {{ user.following | length }}
               </a>
             </h4>
           </li>
           <li class="stat">
             <p class="small">Followers</p>
             <h4>
-              <a href="/users/{{ g.user.id }}/followers">
-                {{ g.user.followers | length }}
+              <a href="/users/{{ user.id }}/followers">
+                {{ user.followers | length }}
               </a>
             </h4>
           </li>
@@ -51,7 +51,7 @@
 
       <li class="list-group-item">
 
-        {% if not message in g.user.messages %}
+        {% if not message in user.messages %}
         <div id="star-area">
           <form method="POST"
             action="/messages/{{ message.id }}/liked">
@@ -61,7 +61,7 @@
                 type="hidden"
                 name="location"
                 value="{{ request.url}}">
-              {% if message in g.user.liked %}
+              {% if message in user.liked %}
               <i class="bi bi-star-fill"></i>
               {% else %}
               <i class="bi bi-star"></i>

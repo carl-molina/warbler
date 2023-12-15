@@ -185,11 +185,13 @@ nav + .container {
   height: 48px;
   width: 48px;
   margin-top: 2px;
+  z-index: 7;
 }
 
 .message-area,
 .timeline-image {
   display: inline-block;
+  z-index: 1;
 }
 
 .message-area {
@@ -271,7 +273,7 @@ div#star-area {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
 #messages .list-group-item a:not(.message-link) {

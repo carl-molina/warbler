@@ -101,6 +101,7 @@ class User(db.Model):
 
     liked = db.relationship(
         'Message',
+        cascade="all,delete",
         secondary="liked_messages",
         backref="users",
     )
