@@ -104,4 +104,19 @@ class UserModelTestCase(TestCase):
         self.assertEqual(len(u2.liked), 1)
         self.assertNotEqual(len(u2.liked), 0)
 
+    def test_user_has_unliked_message(self):
+        """Tests that user2 model has unliked 1 message. """
 
+        u1 = User.query.get(self.u1_id)
+        u2 = User.query.get(self.u2_id)
+
+        u2.liked.append(u1.messages[0])
+
+        u1_message = u2.liked.query.get(1)
+
+        u2.liked.remove(u1_message)
+
+        db.session.commit()
+
+        self.assertEqual(len(u2.liked), 0)
+        self.assertNotEqual(len(u2.liked), 1)
