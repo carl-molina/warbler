@@ -112,9 +112,19 @@ class UserModelTestCase(TestCase):
 
         u2.liked.append(u1.messages[0])
 
-        u1_message = u2.liked.query.get(1)
+        # u1_message = u2.liked[0]
+        # u2.liked.remove(u1_message)
 
-        u2.liked.remove(u1_message)
+        u1_message = Message.query.filter_by(user_id=self.u1_id).all()
+        print("This is u1_message", u1_message)
+
+        print('This is u2.liked before remove', u2.liked)
+
+        for message in u2.liked:
+            if u1_message == message:
+                u2.liked.delete(message)
+
+        print('This is u2.liked after remove', u2.liked)
 
         db.session.commit()
 
