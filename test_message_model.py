@@ -62,7 +62,7 @@ class UserModelTestCase(TestCase):
         db.session.rollback()
 
     def test_user_message_model(self):
-        """Tests that user model has 1 message. """
+        """Tests that user1 model has 1 message. """
 
         u1 = User.query.get(self.u1_id)
 
@@ -82,4 +82,26 @@ class UserModelTestCase(TestCase):
     #     # self.assertEqual("ERROR:  zero-length delimited identifier", u1_message_2)
     #     # TODO: double quotes are for naming something
     #     # TODO: use single quotes on psql
+
+    def test_user2_no_message(self):
+        """Tests that user2 model has 0 messages. """
+
+        u2 = User.query.get(self.u2_id)
+
+        self.assertEqual(len(u2.messages), 0)
+        self.assertNotEqual(len(u2.messages), 1)
+
+    def test_user_has_liked_message(self):
+        """Tests that user1 model has 1 liked message. """
+
+        u1 = User.query.get(self.u1_id)
+        u2 = User.query.get(self.u2_id)
+
+        u2.liked.append(u1.messages[0])
+
+        db.session.commit()
+
+        self.assertEqual(len(u2.liked), 1)
+        self.assertNotEqual(len(u2.liked), 0)
+
 

@@ -101,7 +101,7 @@ class User(db.Model):
 
     liked = db.relationship(
         'Message',
-        secondary="liked_msgs",
+        secondary="liked_messages",
         backref="users",
     )
     # TODO: indicate that liked is plural; consider "liked_messages"
@@ -204,10 +204,10 @@ def connect_db(app):
     db.init_app(app)
 
 
-class LikedMsgs(db.Model):
+class LikedMessages(db.Model):
     """Connection of a liked message <-> user."""
 
-    __tablename__ = 'liked_msgs'
+    __tablename__ = 'liked_messages'
     # TODO: consider spelling out messages instead of msgs to pattern match
     # the rest of the codebase
 

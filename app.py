@@ -210,13 +210,13 @@ def show_likes(user_id):
     user = User.query.get_or_404(user_id)
     print('This is g.user.liked', g.user.liked)
 
-    liked_msg_ids = [m.id for m in g.user.liked]
+    liked_messages_ids = [m.id for m in g.user.liked]
 
-    print('This is liked_msg_ids', liked_msg_ids)
+    print('This is liked_messages_ids', liked_messages_ids)
 
     messages = (Message
                 .query
-                .filter(Message.id.in_(liked_msg_ids))
+                .filter(Message.id.in_(liked_messages_ids))
                 .order_by(Message.timestamp.desc())
                 .limit(100)
                 .all())
@@ -347,8 +347,8 @@ def add_message():
     form = MessageForm()
 
     if form.validate_on_submit():
-        msg = Message(text=form.text.data)
-        g.user.messages.append(msg)
+        message = Message(text=form.text.data)
+        g.user.messages.append(message)
         db.session.commit()
 
         return redirect(f"/users/{g.user.id}")
@@ -364,8 +364,8 @@ def show_message(message_id):
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-    msg = Message.query.get_or_404(message_id)
-    return render_template('messages/show.html', message=msg)
+    message = Message.query.get_or_404(message_id)
+    return render_template('messages/show.html', message=message)
 
 
 @app.post('/messages/<int:message_id>/liked')
@@ -381,15 +381,15 @@ def liking_message(message_id):
 
     if g.csrf_form.validate_on_submit():
 
-        msg = Message.query.get_or_404(message_id)
+        message = Message.query.get_or_404(message_id)
 
         curr_url = request.form.get("location")
         print("curr_url=", curr_url)
 
-        if msg in g.user.liked:
-            g.user.liked.remove(msg)
+        if message in g.user.liked:
+            g.user.liked.remove(message)
         else :
-            g.user.liked.append(msg)
+            g.user.liked.append(message)
 
         db.session.commit()
 
@@ -412,8 +412,8 @@ def delete_message(message_id):
         return redirect("/")
 
     if g.csrf_form.validate_on_submit():
-        msg = Message.query.get_or_404(message_id)
-        db.session.delete(msg)
+        message = Message.query.get_or_404(message_id)
+        db.session.delete(message)
         db.session.commit()
 
         return redirect(f"/users/{g.user.id}")
