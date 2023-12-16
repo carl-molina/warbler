@@ -115,14 +115,14 @@ class UserModelTestCase(TestCase):
         # u1_message = u2.liked[0]
         # u2.liked.remove(u1_message)
 
-        u1_message = Message.query.filter_by(user_id=self.u1_id).all()
-        print("This is u1_message", u1_message)
+        u1_messages = Message.query.filter_by(user_id=self.u1_id).all()
+        print("This is u1_message", u1_messages)
 
         print('This is u2.liked before remove', u2.liked)
 
-        for message in u2.liked:
-            if u1_message == message:
-                u2.liked.delete(message)
+        for u1_message in u1_messages:
+            if u1_message in u2.liked:
+                u2.liked.remove(u1_message)
 
         print('This is u2.liked after remove', u2.liked)
 
