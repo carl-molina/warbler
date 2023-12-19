@@ -1,4 +1,4 @@
-"""User model tests."""
+"""Message model tests."""
 
 # run these tests like:
 #
@@ -43,7 +43,7 @@ db.create_all()
 bcrypt = Bcrypt()
 PASSWORD = bcrypt.generate_password_hash("password", rounds=5).decode("utf-8")
 
-class UserModelTestCase(TestCase):
+class MessageModelTestCase(TestCase):
     def setUp(self):
         User.query.delete()
 
