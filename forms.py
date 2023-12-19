@@ -75,7 +75,7 @@ class UserEditForm(FlaskForm):
 
     bio = TextAreaField(
         'Bio',
-        validators=[InputRequired()],
+        validators=[Optional()],
     )
 
     password = PasswordField(
